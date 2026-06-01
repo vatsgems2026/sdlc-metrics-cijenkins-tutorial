@@ -1,0 +1,17 @@
+# Python dependencies for SDLC Metrics Demo Application
+
+# Web framework
+Flask==3.0.0
+Werkzeug==3.0.1
+
+# Testing
+pytest==7.4.3
+pytest-cov==4.1.0
+
+# Code quality
+flake8==6.1.0
+pylint==3.0.3
+
+# Security scanning (optional - for SCA scanning)
+bandit==1.7.5
+safety==2.3.5
