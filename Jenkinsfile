@@ -177,33 +177,33 @@ spec:
                 }
             }
             // TODO: Uncomment the post block below to register the artifact with CloudBees Unify
-            // post {
-            //     success {
-            //         script {
-            //             // Calculate artifact checksum for registration
-            //             def artifactDigest = sh(
-            //                 script: "sha256sum ${APP_NAME}-${APP_VERSION}.tar.gz | awk '{print \$1}'",
-            //                 returnStdout: true
-            //             ).trim()
-            //
-            //             // Register build artifact with CloudBees Unify
-            //             // IMPORTANT: Capture the return value to get artifact ID for deployment tracking
-            //             def buildArtifactId = registerBuildArtifactMetadata(
-            //                 name: "${APP_NAME}",
-            //                 url: "${BUILD_URL}artifact/${APP_NAME}-${APP_VERSION}.tar.gz",
-            //                 version: "${APP_VERSION}",
-            //                 type: "Binary",
-            //                 digest: artifactDigest,
-            //                 label: "build-${BUILD_NUMBER},${BRANCH_NAME}"
-            //             )
-            //
-            //             // Store artifact ID for deployment stage
-            //             env.ARTIFACT_ID = buildArtifactId
-            //             echo "Build artifact registered with CloudBees Unify"
-            //             echo "Artifact ID: ${env.ARTIFACT_ID}"
-            //         }
-            //     }
-            // }
+             post {
+                 success {
+                     script {
+                         // Calculate artifact checksum for registration
+                         def artifactDigest = sh(
+                             script: "sha256sum ${APP_NAME}-${APP_VERSION}.tar.gz | awk '{print \$1}'",
+                             returnStdout: true
+                         ).trim()
+            
+                         // Register build artifact with CloudBees Unify
+                         // IMPORTANT: Capture the return value to get artifact ID for deployment tracking
+                         def buildArtifactId = registerBuildArtifactMetadata(
+                             name: "${APP_NAME}",
+                             url: "${BUILD_URL}artifact/${APP_NAME}-${APP_VERSION}.tar.gz",
+                             version: "${APP_VERSION}",
+                             type: "Binary",
+                             digest: artifactDigest,
+                             label: "build-${BUILD_NUMBER},${BRANCH_NAME}"
+                         )
+            
+                         // Store artifact ID for deployment stage
+                         env.ARTIFACT_ID = buildArtifactId
+                         echo "Build artifact registered with CloudBees Unify"
+                         echo "Artifact ID: ${env.ARTIFACT_ID}"
+                     }
+                 }
+             }
         }
 
         stage('Run C Unit Tests') {
