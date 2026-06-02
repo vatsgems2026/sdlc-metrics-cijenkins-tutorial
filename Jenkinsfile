@@ -374,7 +374,7 @@ spec:
                          // Register deployed artifact with CloudBees Unify
                          // This uses the artifact ID captured from registerBuildArtifactMetadata in Chapter 5
                          registerDeployedArtifactMetadata(
-                             artifactId: ${env.ARTIFACT_ID},
+                             artifactId: buildArtifactId,
                              targetEnvironment: "Production",
                              labels: "deployed,deployment-${BUILD_NUMBER}"
                          )
