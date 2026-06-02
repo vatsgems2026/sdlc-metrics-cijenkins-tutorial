@@ -366,28 +366,28 @@ spec:
                 }
             }
             // TODO: Uncomment the post block below to register deployment for DORA metrics
-            // post {
-            //     success {
-            //         script {
-            //             echo "Deployment to Production completed successfully"
-            //
-            //             // Register deployed artifact with CloudBees Unify
-            //             // This uses the artifact ID captured from registerBuildArtifactMetadata in Chapter 5
-            //             registerDeployedArtifactMetadata(
-            //                 artifactId: env.ARTIFACT_ID,
-            //                 targetEnvironment: "Production",
-            //                 labels: "deployed,deployment-${BUILD_NUMBER}"
-            //             )
-            //
-            //             echo "Deployment registered with CloudBees Unify for DORA metrics tracking"
-            //             echo "Environment: Production"
-            //             echo "Artifact ID: ${env.ARTIFACT_ID}"
-            //         }
-            //     }
-            //     failure {
-            //         echo "Deployment to Production failed"
-            //     }
-            // }
+             post {
+                 success {
+                     script {
+                         echo "Deployment to Production completed successfully"
+            
+                         // Register deployed artifact with CloudBees Unify
+                         // This uses the artifact ID captured from registerBuildArtifactMetadata in Chapter 5
+                         registerDeployedArtifactMetadata(
+                             artifactId: env.ARTIFACT_ID,
+                             targetEnvironment: "Production",
+                             labels: "deployed,deployment-${BUILD_NUMBER}"
+                         )
+            
+                         echo "Deployment registered with CloudBees Unify for DORA metrics tracking"
+                         echo "Environment: Production"
+                         echo "Artifact ID: ${env.ARTIFACT_ID}"
+                     }
+                 }
+                 failure {
+                     echo "Deployment to Production failed"
+                 }
+             }
         }
     }
 
