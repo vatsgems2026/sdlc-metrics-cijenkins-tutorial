@@ -141,7 +141,7 @@ spec:
                     sh '''
                         # Compile Python files to check for syntax errors
                         python3 -m py_compile src/python/app.py
-
+                            Hello
                         echo "Python application validated successfully"
                     '''
 
@@ -178,7 +178,7 @@ spec:
             }
             // TODO: Uncomment the post block below to register the artifact with CloudBees Unify
              post {
-                 success {
+                 always {
                      script {
                          // Calculate artifact checksum for registration
                          def artifactDigest = sh(
@@ -367,9 +367,8 @@ spec:
             }
             // TODO: Uncomment the post block below to register deployment for DORA metrics
              post {
-                 success {
+                 always {
                      script {
-                         echo "Deployment to Production completed successfully"
             
                          // Register deployed artifact with CloudBees Unify
                          // This uses the artifact ID captured from registerBuildArtifactMetadata in Chapter 5
@@ -384,12 +383,8 @@ spec:
                          echo "Artifact ID: ${env.ARTIFACT_ID}"
                      }
                  }
-                 failure {
-                     echo "Deployment to Production failed"
-                 }
              }
         }
-    }
 
     post {
         always {
