@@ -141,7 +141,7 @@ spec:
                     sh '''
                         # Compile Python files to check for syntax errors
                         python3 -m py_compile src/python/app.py
-                            Hello
+
                         echo "Python application validated successfully"
                     '''
 
@@ -178,7 +178,7 @@ spec:
             }
             // TODO: Uncomment the post block below to register the artifact with CloudBees Unify
              post {
-                 always {
+                 success {
                      script {
                          // Calculate artifact checksum for registration
                          def artifactDigest = sh(
@@ -189,7 +189,7 @@ spec:
                          // Register build artifact with CloudBees Unify
                          // IMPORTANT: Capture the return value to get artifact ID for deployment tracking
                          def buildArtifactId = registerBuildArtifactMetadata(
-                             name: "${APP_NAME}",
+                            name: "${APP_NAME}",
                              url: "${BUILD_URL}artifact/${APP_NAME}-${APP_VERSION}.tar.gz",
                              version: "${APP_VERSION}",
                              type: "Binary",
@@ -202,7 +202,7 @@ spec:
                          echo "Build artifact registered with CloudBees Unify"
                          echo "Artifact ID: ${env.ARTIFACT_ID}"
                      }
-                 }
+                }
              }
         }
 
@@ -367,8 +367,9 @@ spec:
             }
             // TODO: Uncomment the post block below to register deployment for DORA metrics
              post {
-                 always {
+                 success {
                      script {
+                         echo "Deployment to Production completed successfully"
             
                          // Register deployed artifact with CloudBees Unify
                          // This uses the artifact ID captured from registerBuildArtifactMetadata in Chapter 5
@@ -383,8 +384,12 @@ spec:
                          echo "Artifact ID: ${env.ARTIFACT_ID}"
                      }
                  }
+                 failure {
+                     echo "Deployment to Production failed"
+                 }
              }
         }
+    }
 
     post {
         always {
@@ -411,3 +416,4 @@ spec:
             echo "[UNSTABLE] Pipeline completed with warnings"
         }
     }
+}
