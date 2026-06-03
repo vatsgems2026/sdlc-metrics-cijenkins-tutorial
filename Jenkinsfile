@@ -411,4 +411,3 @@ spec:
             echo "[UNSTABLE] Pipeline completed with warnings"
         }
     }
-}
