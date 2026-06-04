@@ -224,11 +224,11 @@ spec:
                 }
             }
             // TODO: Uncomment the post block below to publish test results to CloudBees Unify
-            // post {
-            //     always {
-            //         junit testResults: 'test-results/c-test-results.xml', allowEmptyResults: true
-            //     }
-            // }
+             post {
+                 always {
+                     junit testResults: 'test-results/c-test-results.xml', allowEmptyResults: true
+                 }
+             }
         }
 
         stage('Run Python Unit Tests') {
@@ -244,11 +244,11 @@ spec:
                 }
             }
             // TODO: Uncomment the post block below to publish test results to CloudBees Unify
-            // post {
-            //     always {
-            //         junit testResults: 'test-results/pytest-results.xml', allowEmptyResults: true
-            //     }
-            // }
+             post {
+                 always {
+                     junit testResults: 'test-results/pytest-results.xml', allowEmptyResults: true
+                 }
+             }
         }
 
         stage('Code Quality Analysis') {
